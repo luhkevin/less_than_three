@@ -14,12 +14,14 @@ int main() {
     World* world1 = create_world();
 
     //Initialize player '3'
-    Player* three = malloc(sizeof(Player*));
-    Inventory* three_inv = malloc(sizeof(Inventory*));
+    //Player* three = malloc(sizeof(Player*));
+    //Inventory* three_inv = malloc(sizeof(Inventory*));
 
     initscr();
 
+    Player* three = create_player(COLS / 2, LINES / 2);
     //Start 3 in the middle of the screen
+    /*
     three -> x_pos = COLS / 2;
     three -> y_pos = LINES / 2;
     three -> inv   = three_inv;
@@ -27,8 +29,9 @@ int main() {
         three -> stats[i] = 0;
     }
     three -> cur   = malloc(sizeof(Room*));
-    three -> cur   = world1 -> room_arr[0];
+    */
 
+    three -> cur   = world1 -> room_arr[0];
     keypad(stdscr, TRUE);
     noecho();
     cbreak();
