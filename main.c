@@ -1,29 +1,21 @@
 #include <curses.h>
+#include <stdlib.h>
+#include "render.h"
+#include "player.h"
+#include "world1.h"
 
-//TODO: Inventory items will be implemented with a stack
-//Only have a cash field for now
-typedef struct Inventory {
-    int cash;
-} inventory;
-
-typedef struct Player {
-    int x_pos;
-    int y_pos;
-    
-    //Another struct that holds the player's inventory
-    inventory* inv;
-
-    //Skills/stats i will be stored in stats[i], with right hand values from 0 - 10
-    int stats[5];
-} player;
+//TODO: Minigames/minipuzzles must be LOADABLE and MODULAR
 
 int main() {
     int i, c;
     //Menu window...TODO: This should be a panel/menu.
+    
+    //Create world
+    World* world1 = create_world();
 
     //Initialize player '3'
-    player* three;
-    inventory* three_inv;
+    Player* three = malloc(sizeof(Player*));
+    Inventory* three_inv = malloc(sizeof(Inventory*));
 
     initscr();
 
@@ -34,6 +26,8 @@ int main() {
     for(i = 0; i < 5; i++) {
         three -> stats[i] = 0;
     }
+    three -> cur   = malloc(sizeof(Room*));
+    three -> cur   = world1 -> room_arr[0];
 
     keypad(stdscr, TRUE);
     noecho();
@@ -50,29 +44,23 @@ int main() {
 
     //Main game loop
     while(c != 'q') {
+        //Check collisions (with door/NPC/some other object)
+        
         c = getch();
 
-        attron(COLOR_PAIR(1));
+        //Player movement
         switch(c) {
             case KEY_UP:
-                clear();
-                mvprintw(--(three -> y_pos), three -> x_pos, "%c", '3');
-                refresh();
+                (three -> y_pos)--;
                 break;
             case KEY_DOWN:
-                clear();
-                mvprintw(++(three -> y_pos), three -> x_pos, "%c", '3');
-                refresh();
+                (three -> y_pos)++;
                 break;
             case KEY_RIGHT:
-                clear();
-                mvprintw(three -> y_pos, ++(three -> x_pos), "%c", '3');
-                refresh();
+                (three -> x_pos)++;
                 break;
             case KEY_LEFT:
-                clear();
-                mvprintw(three -> y_pos, --(three -> x_pos), "%c", '3');
-                refresh();
+                (three -> x_pos)--;
                 break;
             case KEY_F(1):
                 //menu
@@ -80,7 +68,12 @@ int main() {
             default:
                 break;
         }
-        attroff(COLOR_PAIR(1));
+
+        //Render room/world based on movement
+        //AND/OR handle the appropriate event (minigame/puzzle)
+        //TODO: function pointers?
+        render_player(three);
+        render_room(three -> cur);
     }
 
     refresh();
