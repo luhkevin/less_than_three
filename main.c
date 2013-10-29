@@ -4,8 +4,13 @@
 #include "player.h"
 #include "world1.h"
 #include "collisions.h"
+#include "dialogue.h"
+#include "interact.h"
 
 //TODO: Minigames/minipuzzles must be LOADABLE and MODULAR
+//TODO: gamestate.lua type thing: what happens upon switching rooms
+//TODO: init/setup in rooms
+//TODO: Establish screen (i.e. limit main game screen to a 800x600 box in the middle of the screen)
 
 int main() {
     int c;
@@ -21,7 +26,7 @@ int main() {
     three -> id = '3';
 
     //Initialize player '<'
-    Player* less  = create_player(COLS / 4, LINES / 4, '<');
+    Player* less  = create_player(COLS / 2, LINES / 4, '<');
     less  -> cur   = world1 -> room_arr[0];
     less  -> id = '<';
 
@@ -35,15 +40,6 @@ int main() {
     init_pair(2, COLOR_GREEN, COLOR_RED);
 
     //getmaxyx(stdscr, row, col); //updates row col to max x, y of stdscr
-    /*
-    attron(COLOR_PAIR(1));
-    mvprintw(three -> y_pos, three -> x_pos , "%c", '3');
-    attroff(COLOR_PAIR(1));
-
-    attron(COLOR_PAIR(2));
-    mvprintw(less -> y_pos, less -> x_pos , "%c", '<');
-    attroff(COLOR_PAIR(2));
-    */
 
     //Main game loop
     while(c != 'q') {
@@ -79,9 +75,6 @@ int main() {
                 clear_player(three);
                 (three -> x_pos)--;
                 break;
-            case KEY_F(1):
-                //menu
-                break;
             default:
                 break;
         }
@@ -89,7 +82,20 @@ int main() {
         //Check collisions (with door/NPC/some other object)
         if(collide_player(three, less)) {
             //Open up dialogue box
+            WINDOW* win = create_dialogue_box();            
+            get_dialogue(win);
             mvprintw(1, 0, "%s", "collision!");
+        }
+
+        //Create a door...this should go in some room init file
+        World_obj* door = malloc(sizeof(World_obj*));
+        door -> y_pos = 40;
+        door -> x_pos = 0;
+        door -> id    = "dd";
+        mvprintw(door -> y_pos, door -> x_pos, "%s", door -> id);
+        if(collide_object(three, door)) {
+            mvprintw(2, 0, "%s", "collision with door!");
+            three -> cur   = world1 -> room_arr[1];
         }
     }
 
