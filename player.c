@@ -1,14 +1,15 @@
 #include "player.h"
 
-Player* create_player(int x, int y) {
+Player* create_player(int x, int y, char name) {
     int i;
     Player* p = malloc(sizeof(Player*));
     p -> inv  = malloc(sizeof(Inventory*));
     p -> x_pos = x;
     p -> y_pos = y;
+    p -> id    = name;
 
     for(i = 0; i < 6; i++) {
-        stats[i] = 0;
+        p -> stats[i] = 0;
     }
 
     p -> cur   = malloc(sizeof(Room*));
