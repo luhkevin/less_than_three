@@ -2,12 +2,12 @@
 # PROGRAM is the name of the final program
 PROGRAM = less_than_three
 # UNITS lists the base names of the .c files used in your program
-UNITS   = main render map world1 player collisions dialogue
+UNITS   = main render rooms world player collisions dialogue
 
 # here, put all of the header dependencies
-map.o : map.h
-render.o: render.h map.h player.h 
-world1.o: world.h
+rooms.o : rooms.h
+render.o: render.h rooms.h player.h 
+world.o: world.h
 player.o: player.h
 main.o: render.h player.h world.h collisions.h dialogue.h
 collisions.o: collisions.h interact.h

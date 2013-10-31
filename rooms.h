@@ -30,17 +30,22 @@ typedef struct room {
 } Room;
 
 
-typedef struct world {
-    Room* room_arr[20];
-} World;
-
 /************ ROOM CREATION ************/
-Room* create_room(char* room_id);
-
-//Connects rm1 from dir1 to rm2 from dir2
-void connect_room(Room* rm1, Room* rm2, int dir1, int dir2);
+Room* init_room(char* room_id);
 
 //Adds doors to a room
 void add_doors(Room* rm, int door_x[4], int door_y[4]);
+
+//Adds interactive objects
+void add_objects(Room* rm);
+
+//Adds the npcs
+void add_npcs(Room* rm);
+
+//Adds the walls/borders
+void add_walls(Room* rm);
+
+//Adds the animations
+void add_animations(Room* rm);
 
 #endif

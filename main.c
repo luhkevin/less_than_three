@@ -16,18 +16,18 @@ int main() {
     int c;
 
     //Create world
-    World* world1 = create_world();
+    World* world = create_world();
 
     initscr();
 
     //Initialize player '3'
     Player* three = create_player(COLS / 2, LINES / 2, '3');
-    three -> cur   = world1 -> room_arr[0];
+    three -> cur   = world -> room_arr[0];
     three -> id = '3';
 
     //Initialize player '<'
     Player* less  = create_player(COLS / 2, LINES / 4, '<');
-    less  -> cur   = world1 -> room_arr[0];
+    less  -> cur   = world -> room_arr[0];
     less  -> id = '<';
 
     keypad(stdscr, TRUE);
@@ -98,7 +98,7 @@ int main() {
 
         if(collide_object(three, door)) {
             mvprintw(2, 0, "%s", "collision with door!");
-            three -> cur   = world1 -> room_arr[1];
+            three -> cur   = world -> room_arr[1];
         }
     }
 

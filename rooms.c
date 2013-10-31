@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "map.h"
+#include "rooms.h"
 
 /* 
  * Initializes all doors and directions to 0;
@@ -8,12 +8,11 @@
  * animations, draw the walls/borders, draw the scenery, and generate the 
  * interactive objects and NPCs.
  *
- * It should also create the new window and destroy the previous one
  *
  * TODO: add params to create_room
  */
 
-Room* create_room(char* room_id) {
+Room* init_room(char* room_id) {
     int i;
 
     Room* rm = malloc(sizeof(Room*));
@@ -29,8 +28,3 @@ Room* create_room(char* room_id) {
     return rm;
 }
     
-void connect_room(Room* rm1, Room* rm2, int dir1, int dir2) {
-    (rm1 -> directions[dir1]) = rm2;
-    (rm2 -> directions[dir2]) = rm1;
-}
-

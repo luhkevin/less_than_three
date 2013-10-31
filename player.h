@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "map.h"
+#include "rooms.h"
 
 #ifndef PLAYER_H
 #define PLAYER_H
