@@ -1,7 +1,18 @@
 #include <stdlib.h>
 #include "map.h"
 
-//Initializes all doors and directions to 0;
+/* 
+ * Initializes all doors and directions to 0;
+ *
+ * create_room should also set the position of the doors, generate any 
+ * animations, draw the walls/borders, draw the scenery, and generate the 
+ * interactive objects and NPCs.
+ *
+ * It should also create the new window and destroy the previous one
+ *
+ * TODO: add params to create_room
+ */
+
 Room* create_room(char* room_id) {
     int i;
 

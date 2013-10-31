@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "render.h"
 #include "player.h"
-#include "world1.h"
+#include "world.h"
 #include "collisions.h"
 #include "dialogue.h"
 #include "interact.h"
@@ -87,12 +87,15 @@ int main() {
             mvprintw(1, 0, "%s", "collision!");
         }
 
+        /*
         //Create a door...this should go in some room init file
         World_obj* door = malloc(sizeof(World_obj*));
         door -> y_pos = 40;
         door -> x_pos = 0;
         door -> id    = "dd";
         mvprintw(door -> y_pos, door -> x_pos, "%s", door -> id);
+        */
+
         if(collide_object(three, door)) {
             mvprintw(2, 0, "%s", "collision with door!");
             three -> cur   = world1 -> room_arr[1];
