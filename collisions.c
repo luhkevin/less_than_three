@@ -35,3 +35,14 @@ int collide_object(Player* p, World_obj* wo) {
     return check_nbd(p_x, p_y, o_x, o_y);
 }
 
+int collide_walls(Player* p, Directions dir) {
+    int p_x = p -> x_pos;
+    int p_y = p -> y_pos;
+
+    if(dir == NORTH) return (p_y == 1);
+    if(dir == EAST) return (p_x == 118);
+    if(dir == SOUTH) return (p_y == 38);
+    if(dir == WEST) return (p_x == 1);
+
+    return 1;
+}

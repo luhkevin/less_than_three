@@ -33,6 +33,7 @@ int main(int argc, char** argv) {
     starty = (LINES - GAMEWIN_HEIGHT) / 2;
     startx = (COLS - GAMEWIN_WIDTH) / 2;
 
+    //mvprintw(1, 1, "%d %d", COLS, LINES);
     refresh();
 
     game_win = newwin(GAMEWIN_HEIGHT, GAMEWIN_WIDTH, starty, startx);
@@ -80,25 +81,35 @@ int main(int argc, char** argv) {
         //Player movement
         switch(c) {
             case KEY_UP:
-                clear_player(three);
-                (three -> y_pos)--;
+                if(!collide_walls(three, 0)) {
+                    clear_player(three);
+                    (three -> y_pos)--;
+                }
                 break;
             case KEY_DOWN:
-                clear_player(three);
-                (three -> y_pos)++;
+                if(!collide_walls(three, 2)) {
+                    clear_player(three);
+                    (three -> y_pos)++;
+                }
                 break;
             case KEY_RIGHT:
-                clear_player(three);
-                (three -> x_pos)++;
+                if(!collide_walls(three, 1)) {
+                    clear_player(three);
+                    (three -> x_pos)++;
+                }
                 break;
             case KEY_LEFT:
-                clear_player(three);
-                (three -> x_pos)--;
+                if(!collide_walls(three, 3)) {
+                    clear_player(three);
+                    (three -> x_pos)--;
+                }
                 break;
             default:
                 break;
         }
 
+        mvprintw(1, 1, "%d %d", three -> x_pos, three -> y_pos);
+        refresh();
         //Check collisions (with door/NPC/some other object)
         if(collide_player(three, less)) {
             //Open up dialogue box

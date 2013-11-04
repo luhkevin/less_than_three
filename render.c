@@ -37,3 +37,4 @@ void clear_player(Player* p) {
     mvwprintw(game_win, p -> y_pos, p -> x_pos, "%s", " ");
     wrefresh(game_win);
 }
+
