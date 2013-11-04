@@ -116,6 +116,8 @@ int main(int argc, char** argv) {
             WINDOW* win = create_dialogue_box();            
             get_dialogue(win);
             mvprintw(1, 0, "%s", "collision!");
+            wclear(win);
+            delwin(win);
         }
 
         if(collide_object(three, door)) {

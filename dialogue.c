@@ -13,7 +13,6 @@ WINDOW* create_dialogue_box() {
     keypad(win, true);
     
     update_panels();
-
     doupdate();
     
     return win;
@@ -24,14 +23,19 @@ void get_dialogue(WINDOW* win) {
     char* line = NULL;
     size_t len = 0;
     ssize_t read;
+    int c;
+    int y = 1;
 
     if(fp == NULL) {
         exit(0);
     } else {
         //Print two lines of dialogue
-        if((read = getline(&line, &len, fp)) != -1) mvwprintw(game_win, 10, 45, "%s", line);
-        if((read = getline(&line, &len, fp)) != -1) mvwprintw(game_win, 11, 45, "%s", line);
+        while((c = getch()) != 'e') {
+            if((read = getline(&line, &len, fp)) != -1) mvwprintw(win, y++, 1, "%s", line);
+            wrefresh(win);
+        }
     }
     wrefresh(game_win);
+    keypad(stdscr, true);
 }
     
