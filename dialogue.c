@@ -29,9 +29,9 @@ void get_dialogue(WINDOW* win) {
         exit(0);
     } else {
         //Print two lines of dialogue
-        if((read = getline(&line, &len, fp)) != -1) mvwprintw(stdscr, 10, 45, "%s", line);
-        if((read = getline(&line, &len, fp)) != -1) mvwprintw(stdscr, 11, 45, "%s", line);
+        if((read = getline(&line, &len, fp)) != -1) mvwprintw(game_win, 10, 45, "%s", line);
+        if((read = getline(&line, &len, fp)) != -1) mvwprintw(game_win, 11, 45, "%s", line);
     }
-    refresh();
+    wrefresh(game_win);
 }
     

@@ -26,12 +26,12 @@ typedef struct room {
     struct Room* directions[4];
 
     //Identification (World 1 - Room 1: 1-1)
-    const char* id;
+    char id[4];
 } Room;
 
 
 /************ ROOM CREATION ************/
-Room* init_room(char* room_id);
+Room* init_room(char room_id[4]);
 
 //Adds doors to a room
 void add_doors(Room* rm, int door_x[4], int door_y[4]);

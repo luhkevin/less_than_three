@@ -22,7 +22,7 @@
 //TODO: Function pointers here? for "inheriting" the create_world function?
 //Because they need to be different per world
 //Same with rooms, for that matter
-inline World* create_world(int world_id) {
+World* create_world(int world_id) {
     World* wd = malloc(sizeof(World*));
     wd -> world_id = world_id;
 
@@ -49,7 +49,7 @@ void create_rooms(World* wd, int n) {
         room_id[1] = '-';
         room_id[2] = i + '0';
         room_id[3] = '\0';
-        wd -> room_arr[i] = create_room(room_id);
+        wd -> room_arr[i] = init_room(room_id);
     }
 }
 

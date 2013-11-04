@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include "rooms.h"
 
 #ifndef PLAYER_H
@@ -19,11 +20,11 @@ typedef struct player {
 
     //Skills/stats i will be stored in stats[i], with right hand values from 0 - 10
     int stats[5];
-    char id;
+    char id[4];
 
     //Current room
     Room* cur;
 } Player;
 
-Player* create_player(int x, int y, char id);
+Player* create_player(int x, int y, char id[4]);
 #endif 

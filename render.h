@@ -1,3 +1,5 @@
+#include <curses.h>
+#include "constants.h"
 #include "player.h"
 #include "rooms.h"
 
