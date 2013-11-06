@@ -1,4 +1,5 @@
 #include <curses.h>
+#include <panel.h>
 
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
@@ -14,12 +15,17 @@
 unsigned int room_id;
 
 /*
- * GAME, menu, announcement WINDOWs
+ * GAME WINDOW
  *
  */
 WINDOW* game_win;
-WINDOW* menu_win;
-WINDOW* announcement_win;
+WINDOW* dialogue_win;
+/*
+ * GAME PANEL
+ *
+ */
+PANEL* game_pan;
+PANEL* dialogue_pan;
 
 /* 
  * PLAYER POSITION
@@ -27,5 +33,12 @@ WINDOW* announcement_win;
  */
 unsigned int x_pos;
 unsigned int y_pos;
+
+/*
+ * DIALOGUE STATE
+ *
+ */
+//TODO: 'foo' and 'bar' are obviously placeholders
+typedef enum {foo, bar} dialogue_state;
 
 #endif

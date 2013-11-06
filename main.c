@@ -37,6 +37,7 @@ int main(int argc, char** argv) {
     refresh();
 
     game_win = newwin(GAMEWIN_HEIGHT, GAMEWIN_WIDTH, starty, startx);
+    game_pan = new_panel(game_win);
     box(game_win, 0, 0); //0, 0: default char for vert/horz lines
     wrefresh(game_win);
 
@@ -113,11 +114,13 @@ int main(int argc, char** argv) {
         //Check collisions (with door/NPC/some other object)
         if(collide_player(three, less)) {
             //Open up dialogue box
-            WINDOW* win = create_dialogue_box();            
-            get_dialogue(win);
+            create_dialogue_box();            
+            get_dialogue();
             mvprintw(1, 0, "%s", "collision!");
-            wclear(win);
-            delwin(win);
+            hide_panel(dialogue_pan);
+            update_panels();
+            doupdate();
+            //delwin(win);
         }
 
         if(collide_object(three, door)) {
@@ -127,7 +130,7 @@ int main(int argc, char** argv) {
         }
     }
 
-    //wrefresh(game_win);
+    wrefresh(game_win);
     endwin();
     return 0;
 }

@@ -1,24 +1,20 @@
 #include "dialogue.h"
 
-WINDOW* create_dialogue_box() {
+void create_dialogue_box() {
     int lines = 10, cols = 80, y = 0, x = 45;
-    WINDOW* win;
-    PANEL* pan;
 
-    win = newwin(lines, cols, y, x);
-    box(win, 0, 0);
-    pan = new_panel(win);
+    dialogue_win = newwin(lines, cols, y, x);
+    box(dialogue_win, 0, 0);
+    dialogue_pan = new_panel(dialogue_win);
 
     keypad(stdscr, false);
-    keypad(win, true);
+    keypad(dialogue_win, true);
     
     update_panels();
     doupdate();
-    
-    return win;
 }
 
-void get_dialogue(WINDOW* win) {
+void get_dialogue() {
     FILE* fp = fopen("dialogue/0-0", "r");
     char* line = NULL;
     size_t len = 0;
@@ -31,11 +27,15 @@ void get_dialogue(WINDOW* win) {
     } else {
         //Print two lines of dialogue
         while((c = getch()) != 'e') {
-            if((read = getline(&line, &len, fp)) != -1) mvwprintw(win, y++, 1, "%s", line);
-            wrefresh(win);
+            if((read = getline(&line, &len, fp)) != -1) mvwprintw(dialogue_win, y++, 1, "%s", line);
+            wrefresh(dialogue_win);
         }
     }
+    wclear(dialogue_win);
+    wrefresh(dialogue_win);
+
     wrefresh(game_win);
     keypad(stdscr, true);
+    fclose(fp);
 }
     

@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include <panel.h>
 #include "constants.h"
-WINDOW* create_dialogue_box();
+
+void create_dialogue_box();
 void get_dialogue();
 
 #endif
