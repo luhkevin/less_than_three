@@ -20,11 +20,11 @@ typedef struct player {
 
     //Skills/stats i will be stored in stats[i], with right hand values from 0 - 10
     int stats[5];
-    char id[4];
+    char id[2];
 
     //Current room
     Room* cur;
 } Player;
 
-Player* create_player(int x, int y, char id[4]);
+Player* create_player(int x, int y, char id[2]);
 #endif 

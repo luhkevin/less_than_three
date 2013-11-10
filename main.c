@@ -1,5 +1,6 @@
 #include <curses.h>
 #include <stdlib.h>
+#include <string.h>
 #include "constants.h"
 #include "render.h"
 #include "player.h"
@@ -17,8 +18,6 @@
 #define GAMEWIN_HEIGHT 40
 #define GAMEWIN_WIDTH  120
 
-WINDOW* create_newwin(int height, int width, int starty, int startx);
-
 int main(int argc, char** argv) {
     int startx, starty;
     int c;
@@ -33,23 +32,20 @@ int main(int argc, char** argv) {
     starty = (LINES - GAMEWIN_HEIGHT) / 2;
     startx = (COLS - GAMEWIN_WIDTH) / 2;
 
-    //mvprintw(1, 1, "%d %d", COLS, LINES);
     refresh();
 
     game_win = newwin(GAMEWIN_HEIGHT, GAMEWIN_WIDTH, starty, startx);
     game_pan = new_panel(game_win);
-    box(game_win, 0, 0); //0, 0: default char for vert/horz lines
-    wrefresh(game_win);
 
     //Initialize player '3'
     Player* three = create_player(COLS / 2, LINES / 2, "3");
     three -> cur   = world -> room_arr[0];
-    wrefresh(game_win);
+    strcpy(three -> id, "3");
 
     //Initialize player '<'
     Player* less  = create_player(COLS / 2, LINES / 4, "<");
     less  -> cur   = world -> room_arr[0];
-    //less  -> id = '<';
+    strcpy(less -> id, "<");
     
     noecho();
     curs_set(0); //Don't show cursor
@@ -66,26 +62,37 @@ int main(int argc, char** argv) {
     world -> room_arr[0] -> door_x[0] = door -> x_pos;
     world -> room_arr[0] -> door_y[0] = door -> y_pos;
    
+    world -> room_arr[1] -> door_x[0] = 5;
+    world -> room_arr[1] -> door_y[0] = 5;
+    wclear(game_win);
+
+    box(game_win, 0, 0); //0, 0: default char for vert/horz lines
+
     //Main game loop
     while(c != 'q') {
+        update_panels();
+        doupdate();
+        wrefresh(game_win);
+
+        box(game_win, 0, 0); //0, 0: default char for vert/horz lines
+
         //Render room/world based on movement
         //AND/OR handle the appropriate event (minigame/puzzle)
         render_room(three -> cur);
 
         //Render players
         render_player(three);
-
         render_player(less);
 
         c = getch();
-    
+
         //Player movement
         switch(c) {
             case KEY_UP:
                 if(!collide_walls(three, 0)) {
                     clear_player(three);
                     (three -> y_pos)--;
-                }
+                } 
                 break;
             case KEY_DOWN:
                 if(!collide_walls(three, 2)) {
@@ -120,30 +127,18 @@ int main(int argc, char** argv) {
             hide_panel(dialogue_pan);
             update_panels();
             doupdate();
-            //delwin(win);
         }
 
         if(collide_object(three, door)) {
             mvprintw(2, 0, "%s", "collision with door!");
             refresh();
-            three -> cur   = world -> room_arr[1];
+            three -> cur = world -> room_arr[1];
+            wclear(game_win);
         }
     }
 
     wrefresh(game_win);
     endwin();
     return 0;
-}
-
-//TODO: MOVE THIS SHIT SOMEWHERE ELSE
-WINDOW* create_newwin(int height, int width, int starty, int startx) {
-    WINDOW* local_win;
-    local_win = newwin(height, width, starty, startx);
-    box(local_win, 0, 0); //0, 0: default char for vert/horz lines
-    mvwprintw(local_win, 1, 1, "%s", "hello!");
-
-    wrefresh(local_win);    //show the box
-
-    return local_win;
 }
 

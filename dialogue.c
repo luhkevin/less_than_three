@@ -34,7 +34,7 @@ void get_dialogue() {
     wclear(dialogue_win);
     wrefresh(dialogue_win);
 
-    wrefresh(game_win);
+    //wrefresh(game_win);
     keypad(stdscr, true);
     fclose(fp);
 }

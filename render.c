@@ -8,13 +8,13 @@
 //Will print the room id
 void render_room(Room* rm) {
     int i;
-    mvwprintw(game_win, 1, 1, "%s", "0-0");
+    mvwprintw(game_win, 1, 1, "%s", rm -> id);
 
     //for(i = 0; i < 4; i++) {
         //if((rm -> door_x[i]) > 0) 
             //TODO:Eventually, initialize World_obj with the rooms, put them
             //inside the room struct
-            mvwprintw(game_win, 20, 20, "%s", "dd");
+            mvwprintw(game_win, rm -> door_y[0], rm -> door_x[0], "%s", "dd");
     //}
 
     wrefresh(game_win);
@@ -25,7 +25,7 @@ void render_room(Room* rm) {
 void render_player(Player* p) {
     init_pair(1, COLOR_RED, COLOR_GREEN);
     wattron(game_win, COLOR_PAIR(1));
-    mvwprintw(game_win, p -> y_pos, p -> x_pos, "%s", "3");
+    mvwprintw(game_win, p -> y_pos, p -> x_pos, "%s", p -> id);
     wattroff(game_win, COLOR_PAIR(1));
 
     wrefresh(game_win);

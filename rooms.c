@@ -13,7 +13,7 @@
  * TODO: add params to create_room
  */
 
-Room* init_room(char room_id[4]) {
+Room* init_room(char id[4]) {
     int i;
 
     Room* rm = malloc(sizeof(Room*));
@@ -25,7 +25,7 @@ Room* init_room(char room_id[4]) {
         rm -> directions[i] = 0;
     }
 
-    strcpy(rm -> id, room_id);
+    strcpy(rm -> id, id);
     return rm;
 }
     
