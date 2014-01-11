@@ -3,8 +3,17 @@
 
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
+
+#define GAMEWIN_HEIGHT 40
+#define GAMEWIN_WIDTH  120
+
 /* Defines some of the constants in the world (door length, etc...) */
 
+WINDOW* game_win;
+PANEL* game_pan;
+
+WINDOW* dialogue_win;
+PANEL* dialogue_pan;
 
 /* 
  * CURRENT ROOM ID
@@ -13,19 +22,6 @@
  *
  */
 unsigned int room_id;
-
-/*
- * GAME WINDOW
- *
- */
-WINDOW* game_win;
-WINDOW* dialogue_win;
-/*
- * GAME PANEL
- *
- */
-PANEL* game_pan;
-PANEL* dialogue_pan;
 
 /* 
  * PLAYER POSITION
@@ -41,4 +37,5 @@ unsigned int y_pos;
 //TODO: 'foo' and 'bar' are obviously placeholders
 typedef enum {foo, bar} dialogue_state;
 
+typedef enum {NORTH, EAST, SOUTH, WEST} Directions;
 #endif

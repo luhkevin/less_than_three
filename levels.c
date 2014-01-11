@@ -53,7 +53,7 @@ void create_rooms(World* wd, int n) {
     }
 }
 
-void create_connections(Room* rm1, Room* rm2, int dir1, int dir2) {
+void create_connections(Room* rm1, Room* rm2, Directions dir1, Directions dir2) {
     (rm1 -> directions[dir1]) = rm2;
     (rm2 -> directions[dir2]) = rm1;
 }

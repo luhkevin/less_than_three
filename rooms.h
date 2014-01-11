@@ -1,5 +1,8 @@
-#ifndef MAP_H
-#define MAP_H
+#ifndef ROOMS_H
+#define ROOMS_H
+
+#include "globals.h"
+
 /* Map creation 
  *
  * Worlds will be traversed based on certain events. 
@@ -33,19 +36,12 @@ typedef struct room {
 /************ ROOM CREATION ************/
 Room* init_room(char room_id[4]);
 
-//Adds doors to a room
-void add_doors(Room* rm, int door_x[4], int door_y[4]);
-
 //Adds interactive objects
 void add_objects(Room* rm);
 
-//Adds the npcs
+void add_doors(Room* rm, int door_x[4], int door_y[4]);
 void add_npcs(Room* rm);
-
-//Adds the walls/borders
 void add_walls(Room* rm);
-
-//Adds the animations
 void add_animations(Room* rm);
 
 #endif

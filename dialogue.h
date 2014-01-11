@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 #include <panel.h>
-#include "constants.h"
+#include "globals.h"
 
 void create_dialogue_box();
 void get_dialogue();

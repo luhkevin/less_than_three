@@ -1,7 +1,7 @@
 #include <curses.h>
 #include <stdlib.h>
 #include <string.h>
-#include "constants.h"
+#include "globals.h"
 #include "render.h"
 #include "player.h"
 #include "world.h"
@@ -15,23 +15,23 @@
 //TODO: init/setup in rooms
 //TODO: Establish screen (i.e. limit main game screen to a 800x600 box in the middle of the screen)
 
-#define GAMEWIN_HEIGHT 40
-#define GAMEWIN_WIDTH  120
+World* world;
+int startx, starty;
 
-int main(int argc, char** argv) {
-    int startx, starty;
-    int c;
-
-    //TODO: Put all this into init incrementally! 
-    World* world = init_world_0();
-
+void init() {
     initscr();
     cbreak();
     keypad(stdscr, TRUE);
 
+    world = init_world_0();
     starty = (LINES - GAMEWIN_HEIGHT) / 2;
     startx = (COLS - GAMEWIN_WIDTH) / 2;
+}
 
+int main(int argc, char** argv) {
+    int c;
+
+    init();
     refresh();
 
     game_win = newwin(GAMEWIN_HEIGHT, GAMEWIN_WIDTH, starty, startx);
@@ -54,19 +54,7 @@ int main(int argc, char** argv) {
     init_pair(1, COLOR_RED, COLOR_GREEN);
     init_pair(2, COLOR_GREEN, COLOR_RED);
 
-    //DOORS move this into world_creation later
-    World_obj* door = malloc(sizeof(World_obj*));
-    door -> id = "dd";
-    door -> x_pos = 20;
-    door -> y_pos = 20; 
-    world -> room_arr[0] -> door_x[0] = door -> x_pos;
-    world -> room_arr[0] -> door_y[0] = door -> y_pos;
-   
-    world -> room_arr[1] -> door_x[0] = 5;
-    world -> room_arr[1] -> door_y[0] = 5;
     wclear(game_win);
-
-    box(game_win, 0, 0); //0, 0: default char for vert/horz lines
 
     //Main game loop
     while(c != 'q') {
@@ -129,7 +117,7 @@ int main(int argc, char** argv) {
             doupdate();
         }
 
-        if(collide_object(three, door)) {
+        if(collide_object(three, world -> room_arr[0] -> door_x[0], world -> room_arr[0] -> door_y[0])) {
             mvprintw(2, 0, "%s", "collision with door!");
             refresh();
             three -> cur = world -> room_arr[1];

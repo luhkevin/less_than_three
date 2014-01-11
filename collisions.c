@@ -25,12 +25,12 @@ int collide_player(Player* p1, Player* p2) {
 }
 
 
-int collide_object(Player* p, World_obj* wo) {
+int collide_object(Player* p, int x_pos, int y_pos) {
     int p_x = p -> x_pos;
     int p_y = p -> y_pos;
 
-    int o_x = wo -> x_pos;
-    int o_y = wo -> y_pos;
+    int o_x = x_pos;
+    int o_y = y_pos;
 
     return check_nbd(p_x, p_y, o_x, o_y);
 }

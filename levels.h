@@ -1,4 +1,6 @@
 #include <stdlib.h>
+#include "globals.h"
+#include "interact.h"
 #include "rooms.h"
 
 #ifndef WORLD_H
@@ -17,7 +19,7 @@ World* create_world(int world_id);
 void create_rooms(World* wd, int n);
 
 //Connects rm1 from dir1 to rm2 from dir2
-void create_connections(Room* rm1, Room* rm2, int dir1, int dir2);
+void create_connections(Room* rm1, Room* rm2, Directions dir1, Directions dir2);
 
 #endif
 

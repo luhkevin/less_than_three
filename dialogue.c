@@ -1,7 +1,10 @@
 #include "dialogue.h"
 
 void create_dialogue_box() {
-    int lines = 10, cols = 80, y = 0, x = 45;
+    int lines = 10, 
+        cols  = 80, 
+        y = 0, 
+        x = 45;
 
     dialogue_win = newwin(lines, cols, y, x);
     box(dialogue_win, 0, 0);
